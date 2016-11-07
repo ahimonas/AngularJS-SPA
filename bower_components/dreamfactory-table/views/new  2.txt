@@ -1,0 +1,1 @@
+In order to respond to requests from your application the DSP requires a specific header, namely, 'X-DreamFactory-YOUR_APPLICATION_NAME'. To configure AngularJS to use this header we have to configure the AngularJS $httpProvider. In order to do this we add the following constants and headers to the application (specifically in app.js which generally holds configuration script).

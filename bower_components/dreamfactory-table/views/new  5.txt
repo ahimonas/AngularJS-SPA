@@ -1,0 +1,5 @@
+// provider-injector
+// This is an example of config block.
+// You can only inject Providers (not instances) into config blocks
+//  $routeProvider will go here
+}).
