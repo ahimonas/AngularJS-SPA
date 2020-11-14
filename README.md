@@ -1,160 +1,63 @@
-Single Page Application Tutorial 
-Using AngularJS+Dreamfactory
-Written by Andrew Himonas 
+# Single Page Application Tutorial Using AngularJS/DreamFactory 
 
+  - Overview 1.1 Understanding Web Applications 1.2  System Architecture 1.2.1 Frameworks 1.2.2 Platforms 1.2.3 Additional Components
+  - AngularJS Intro 2.1 Basic Structure of a Web Application using Angular 2.2 AngularJS topics
+  - 2.2.1 Data-Binding 2.2.2 Using Directives 2.2.3 Service Objects 2.2.4 Module Loading & Dependencies 
+  - 2.3 Combined Topics 2.3.1 AngularJS Promises 2.3.2 Making an Ajax Call in Angular using JSON Data and Promises 2.3.3 MVC Implementation
+  - 3 DreamFactory Integration 3.1 Dreamfactory Introduction 3.2 Creating mySQL Tables via Dreamfactory API 3.3 Accessing and Configuring DSP
+  - 4 Code Recomposition 4.1 Authentication 4.2 Dreamfactory Table
 
-Table of Contents 
- 
-1 Overview
-    1.1 Understanding Web Applications 
-    1.2 - System Architecture 
-              1.2.1 Frameworks 
-1.2.2 Platforms 
-              1.2.3 Additional Components
+# Background
 
+Understanding Web Applications Generally there exist two types of web application: round-trip and single-page applications (SPAs). Round-trip Application (Earlier versioned web apps) The browser requests an initial HTML document from the server. Each user interactions results in the browser to constantly request and receive new HTML documents. The browser makes a series of HTTP requests that the server handles by generating HTML documents and populating them with data dynamically. A drawback of round-trip applications is that they make the user wait while the next HTML document is requested and loaded. Single-page Applications (SPAs)
+Single-page applications work differently. An initial HTML document is sent to the browser. Each user interaction results in the browser sending Ajax (“Asynchronous Javascript and XML”) requests for small fragments of HTML or JSON data (see below) inserted into the existing page being displayed to the user. The initially loaded HTML document is never reloaded and the user can continue to interact with the existing HTML while the Ajax requests are being performed asynchronously. SPAs allow for partial page refresh with data-only calls to the server. JSON Data Below is an example of a .JSON file format.
 
-2 AngularJS Intro
-    2.1 Basic Structure of a Web Application using Angular
-    2.2 AngularJS topics  
-2.2.1 Data-Binding
-2.2.2 Using Directives
-2.2.3 Service Objects 
-2.2.4 Module Loading & Dependencies
-    2.3 Combined Topics
-2.3.1 AngularJS Promises
-      	2.3.2 Making an Ajax Call in Angular using JSON Data and Promises
-      	2.3.3 MVC Implementation
- 
-3 DreamFactory Integration 
-3.1 Dreamfactory Introduction
-3.2 Creating mySQL Tables via Dreamfactory API
-3.3 Accessing and Configuring DSP
+[{ "action": "Buy Flowers", "done": false }, { "action": "Get Shoes", "done": false }, { "action": "Collect Tickets", "done": true }, { "action": "Call Joe", "done": false }]
 
+1.2 - System Architecture 1.2.1 - Frameworks AngularJS is a framework which is 100% JavaScript and 100% client-side based. AngularJS applications are html pages with angular code, that is, angular-enhanced JavaScript. . AngularJS relies heavily on the MVC (Model-View-Controller) paradigm which it uses to organize data and simplify development (We will explore this in Section 2). Bootstrap is an HTML, CSS, and JavaScript framework for developing responsive, mobile friendly web applications. Responsive applications resize the content of the browser based on the screen size.
+1.2.2 - Platforms The Apache HTTP Server is an application server that renders static or dynamic HTML content to the browsers. Html pages that include JSON data, HTML files, JavaScript files and any other content are sent via the Apache HTTP server to the browser.
 
- 4 Code Recomposition
-4.1 Authentication
-4.2 Dreamfactory Table
-
-
- 5 Appendix 
-	5.1 Screen Captures 
-
-
-
-
-
-Section 1 - Overview 
-1.1 - Understanding Web Applications 
-Generally there exist two types of web application: round-trip and single-page applications (SPAs). 
-Round-trip Application (Earlier versioned web apps) 
-The browser requests an initial HTML document from the server. Each user interactions results in the browser to constantly request and receive new HTML documents. The browser makes a series of HTTP requests that the server handles by generating HTML documents and populating them with data dynamically. A drawback of round-trip applications is that they make the user wait while the next HTML document is requested and loaded.
-Single-page Applications (SPAs)  
-Single-page applications work differently. An initial HTML document is sent to the browser. Each user interaction results in the browser sending Ajax (“Asynchronous Javascript and XML”) requests for small fragments of HTML or JSON data (see below) inserted into the existing page being displayed to the user. The initially loaded HTML document is never reloaded and the user can continue to interact with the existing HTML while the Ajax requests are being performed asynchronously. SPAs allow for partial page refresh with data-only calls to the server.
-JSON Data
-Below is an example of a .JSON file format.
-
-
-[{ "action": "Buy Flowers", "done": false }, 
-{ "action": "Get Shoes", "done": false }, 
-{ "action": "Collect Tickets", "done": true },
- { "action": "Call Joe", "done": false }] 
-
-
-1.2 - System Architecture 
-1.2.1 - Frameworks
-AngularJS is a framework which is 100% JavaScript and 100% client-side based. AngularJS applications are html pages with angular code, that is, angular-enhanced JavaScript. . AngularJS relies heavily on the MVC (Model-View-Controller) paradigm which it uses to organize data and simplify development (We will explore this in Section 2).
-Bootstrap is an HTML, CSS, and JavaScript framework for developing responsive, mobile friendly web applications. Responsive applications resize the content of the browser based on the screen size.
-
-
-
-
-
-
-System Diagram   
-                                                                                      
-
-
-
-1.2.2 - Platforms 
-The Apache HTTP Server is an application server that renders static or dynamic HTML content to the browsers. Html pages that include JSON data, HTML files, JavaScript files and any other content are sent via the Apache HTTP server to the browser. 
-
-
-Dreamfactory functions as a server middleware which connects an application to a backend resource such as SQL/noSQL database, file storage or email.  Through AngularJS, HTTP request  headers will be directed to the location of Dreamfactory. HTTP methods will then be called on the connected Dreamfactory resources.  
+Dreamfactory functions as a server middleware which connects an application to a backend resource such as SQL/noSQL database, file storage or email. Through AngularJS, HTTP request headers will be directed to the location of Dreamfactory. HTTP methods will then be called on the connected Dreamfactory resources.
 MySQL is a relational database accessed via SQL commands from the server.
 
+1.2.3 - Additional Components Bitnami is an installer which installs and configures application bundles; in our case Apache, MySQL and Dreamfactory on Windows or UNIX platforms. It is also responsible for starting and stopping the Apache server and mySQL database, provides for admin access, environment variable configuration and component connectivity. Bower is a package manager is responsible for installing and organizing necessary web components including frameworks and libraries.
 
-1.2.3 - Additional Components 
-Bitnami is an installer which installs and configures application bundles; in our case Apache, MySQL and Dreamfactory on Windows or UNIX platforms. It is also responsible for starting and stopping the Apache server and mySQL database, provides for admin access, environment variable configuration and component connectivity.
-Bower is a package manager is responsible for installing and organizing necessary web components including frameworks and libraries.   
-
-
-Section 2 - AngularJS Introduction
-2.1 Basic structure of a Web Application using Angular
-Below is a sample boilerplate of a web application using AngularJS with the addition of a simple controller. The steps and necessary components for creating an HTML5, AngularJS compatible .html file are included. (See below)
-
+Section 2 - AngularJS Introduction 2.1 Basic structure of a Web Application using Angular Below is a sample boilerplate of a web application using AngularJS with the addition of a simple controller. The steps and necessary components for creating an HTML5, AngularJS compatible .html file are included. (See below)
 
 testApp.html
+Step-1: 
+Declare HTML step-2 Define App
+Step-2 Load the library: 
+<scrpt src ="https/ajaxgoogleapis.com…/angularJS"</script>
+Step-3: 
+Define controller
+Step-4:
+Define model function TextController($scope){ $scope.someText = “Binding” } 
+Step 5: Define view:
+{{someText}}
+Step 6: 
+Load in browser:
 
+Result: When loading the HTML page we will see the output “Binding”. In this example we created a controller “Text Controller” and added the variable someText to its scope. The The curly braces are used {{ }} to bind expressions to elements is built-in Angular, in our case someText is set equal to the string “Binding” and was assigned to a controller. When we invoked {{someText}} the value of the bounded variable is displayed.
 
-Step-1: Declare HTML               <!DOCTYPE html>
-step-2 Define App	          <html ng-app="TodoApp">
+2.2 - AngularJS Topics 2.2.1 Built-in Directives AngularJS lets you extend HTML with attributes called Directives. A built-in directive is one that is already pre-defined by Angular, all built-in directives are prefixed with the ng namespace.
 
+Scopes are objects that contain functionality and data to use when rendering the view. You can think of scopes as view models.
 
-Step-3: Define controller          <body ng-controller = “TextController”>
-
-
-Step-4 Define model       		function TextController($scope){
-			  	    $scope.someText = “HELLO”
-			 	}		
-Step 5: Define view:    		<p> {{someText}}</p>
-Step-2 Load the library: 		<scrpt src = https/ajaxgoogleapis.com…/angularJS</script>
-                    
-      		          </body>
-                  	                         </html>
-Step 6: Load in browser:
-
-
-Result: 
-When loading the HTML page we will see the output “HELLO”. In this example we created a controller “Text Controller” and added the variable someText to its scope. The The curly braces are used {{ }} to bind expressions to elements is built-in Angular, in our case someText is set equal to the string “HELLO”  and was assigned to a controller. When we invoked {{someText}} the value of the bounded variable is displayed. 
-
-
-2.2 - AngularJS Topics 
-2.2.1 Built-in Directives
-AngularJS lets you extend HTML with attributes called Directives. A built-in directive is one that is already pre-defined by Angular, all built-in directives are prefixed with the ng namespace.
-
-
-Scopes are objects that contain functionality and data to use when rendering the view. You can think of scopes as view models. 
-
-
-2.2.3 Data-Binding
-Consider the following example. 
-
-
-<!DOCTYPE html>
-<html>
-   <head>
-   <!--Must include angular.js in this case min.js is-->
-   <script src="angular.js"></script> 
-   </head>
-
-
+2.2.3 Data-Binding Consider the following example.
+<script src="angular.js"></script>
+First name: {{firstName}}
+Last name:
+<label>Set the first name: <input type="text" ng-model="firstName"/></label>
+<label>Set the last name: <input type="text" ng-model="lastName"/></label>
 <!---------------------------------------------Example 1 (One way binding)-------------------------------------->
-
-
    <body ng-app ng-init="firstName = ‘Andreas'; lastName = 'Himonas';">
-
-
 <br> First name: {{firstName}}<br />
 <br> Last name: <span ng-bind="lastName"></br>
 
-
 <!-------------------------------------------Example 2 (Two way binding)-------------------------------------------->
-
-
  	<label>Set the first name: <input type="text" ng-model="firstName"/></label>
  	<label>Set the last name: <input type="text" ng-model="lastName"/></label>
-
-
    </body>
 </html>
 
@@ -165,37 +68,28 @@ Output:
 First name:  Andreas
 lastName = 'Himonas'; 
 
-
 The code in Example1 simply sets the first and last name in a static fashion by declaring them with the directive ng-init and displaying the value of the variables via {{firstName}} and ng-bind="lastName"(these statements are analogous). 
-
 
 Example 2:
 Behavior:
 The code in Example2 behaves a bit differently and has dynamic attributes. At the most basic level, the ngModel directive provides a two-way data-binding mechanism that connects the view-model to various User Interface controls. In our case it two-way binded our View-Model to input type="text" conversely, AngularJs through the ng-model directive knows how to update the Input value as our View-Model changes. The effects in this case causes our variable firstName and lastName dynamically change its value based on what the user inputs as text.
 
-
 2.2.3 - Service Objects 
 Services provide a method for us to keep data around for the lifetime of the app and aid in communicating across controllers. Services are objects that are instantiated only once per app. They provide an interface to keep together methods that relate to a specific function.
 
-
 $http, for instance, is an example of an AngularJS service. It provides low-level access to the browser’s XMLHttpRequest object. Rather than filling the application with low-level calls to the XMLHttpRequest object, we can alternatively use a much more efficient $http API (see 2.3.2). 
-
 
 2.2.4 - Module Loading & Dependencies
 A module is a collection of configuration and run blocks which get applied to the application during the bootstrap process. In its simplest form the module consist of a collection of two kinds of blocks, which are listed below.
 
-
 Configuration blocks 
 These blocks will get executed during the provider registrations and configuration phase. Only providers and constants can be injected into configuration blocks. This is to prevent accidental instantiation of services before they have been fully configured.
-
 
 Run blocks
 These blocks will get executed after the injector is created and are used to kickstart the application. Only instances and constants can be injected into run blocks. This is to prevent further system configuration during application run time.
 
-
 ex.
 angular.module('myModule', [])
-
 
 .config(function(injectables) { // provider-injector
   // This is an example of config block.
@@ -203,21 +97,17 @@ angular.module('myModule', [])
  // $routeProvider will go here to set the appropriate routes
 })
 
-
 .run(function(injectables) { // instance-injector
 //You can only inject instances (not Providers) into run blocks.
 /This is where you would assign your $HTTP service object.
 });
 
-
 2.3 - Combined Topics 
 2.3.1 - Promises
 Promises are the JavaScript way of representing an item of work that will be performed asynchronously and that will be completed at some point in the future. The most common way to encounter promises is by making Ajax requests; the browser makes the HTTP request behind the scenes and uses a promise to notify your application when the request has completed. 
 
-
 2.3.2 - Making an Ajax Call from Angular with JSON Data and Promises
 The $http service is used for making Ajax requests, and the get method takes the URL of the file that you want to retrieve from the server.
-
 
 //The following code snippet would typically found in app.js
 //We assume that that “file.json” is in the same path as the code below
@@ -229,13 +119,10 @@ asynchronousRequest.success(function (data) { //example of Asynchronous request
 /* The remaining code will continue to execute while the promise is being fulfilled*/
 …
 
-
 The Ajax request is performed asynchronously, and the browser continues to run the application while the request is being made. The $http.get method returns a promise object that can be used to receive notifications about the Ajax request. 
-
 
  2.3.3 MVC Implementation 
 Consider the following example.
-
 
 File Structure of Web Application
 main.js     <!--attaches controllers to module-->
@@ -251,14 +138,11 @@ angular.module('sampleApp', ['ngRoute']);
 //Configure our routes
    sampleApp.config(function($routeProvider) {
         $routeProvider
-
-
             //route for the home page
             .when('/', {
                 templateUrl : 'pages/home.html',
                 controller  : 'mainController'
             })
-
 
             //route for the contact page
             .when('/contact', {
@@ -270,20 +154,14 @@ angular.module('sampleApp', ['ngRoute']);
 angular.module('sampleApp', []);
 //attaches the controller to the module and inject Angular's $scope
 .controller('mainController', function($scope) {
-
-
 //create a message to display in our view
  $scope.message = 'I AM THE MAIN CONTROLLER AND I WILL BE DISPLAYED’;
-
-
  });
 ----------------------------------------------index.html--------------------------------------------------------------
 <!DOCTYPE html>
 
-
 <!-- define angular app, typically uses ng-app followed by the  module name-->
 <html ng-app="sampleApp"> 
-
 
 <head>
 <!-- load bootstrap via CDN -->
@@ -293,12 +171,8 @@ angular.module('sampleApp', []);
 <scriptsrc="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
 </head>
-
-
      <!-- define angular controller -->
     <body ng-controller="mainController">
-
-
         <!-- MAIN CONTENT AND INJECTED VIEWS -->
        <div id="main">
         {{ message }}
@@ -311,28 +185,22 @@ angular.module('sampleApp', []);
    </body> 
 </html>
 
-
 BEHAVIOR:
  The most intuitive way to to analyze the effects of the above code is to first analyze app.js(our configuration code) then main.js (our controller code) then index.html(our main application page). In app.js we initially injects ngRoute into our application module. This directive is used to keep track of the location of the user by deep linking Urls to controllers and views and attempting to map the current path to an existing route. In app.js we have two route cases the first one being .when('/'...) and the second .when('/contact'...). In the first case the ‘/’ represents our root directory(index.htm), hence when the user sends the initial HTTP request, the server will know that the index.html template needs to be loaded along with its corresponding controller (mainController). Typically templates are loaded along with controllers, this helps to separate the code and restricts the controller to only accessing part of the model. In main.js we attached the mainController to our module. The controller passed in a function of the $scope and set the scope variable message to 'I AM THE MAIN CONTROLLER AND I WILL BE DISPLAYED’'. In practice we should’ve also set a contactsController with its own scope but for simplicity this is left out. Once all necessary controllers are attached to the module we can begin to reference them in our HTML templates. Before we begin to analyze our main application page it is important to note the dependencies that were loaded, bootstrap.css,  angular.js and angular-route.js(ngRoute), which were declared in the <head> of our HTML page. Additionally, any files that need to be loaded in order for the application to run must have their paths declared, as seen in the bottom of the <body>. After we have index.html setup the controller can be declared and thus referencing its scope variables is referencing the scope variables that were declared upon controller instantiation in main.js. Hence the effects of binding {{message}} under the main controller results in the message 'I AM THE MAIN CONTROLLER AND I WILL BE DISPLAYED’ being displayed. A few more things to note, in app.js we originally had a routing case when('/contact'...) if we wanted to have another template loaded with a potential contactController we would have the following code somewhere in index.html <a href="#/contacts">Contacts</a>. The result of clicking this link would notify the route provider that our paths have changed and the contacts.html page should be loaded. If we had instantiated and attached a contactsController to our module we could declare the controller in contacts.html and reference its scope variables in the same fashion index.html did with the mainController.  
  
 2.3.4 Controller Hierarchy (Scopes Within Scopes) 
 Consider the following example: 
 
-
 -------------------------------------------------main.js----------------------------------------------------------------
 app.controller('ParentController', function($scope) { 
 $scope.person = {greeted: false}; 
 }); 
-
 
 app.controller('ChildController', function($scope) { 
 $scope.sayHello = function() { 
 $scope.person.name = "Andrew Himonas";
 $scope.person.greeted = true; 
 } });
-
-
-
 
 ----------------------------------------------index.html--------------------------------------------------------------
 <div ng-controller=”ParentController”>  ←(***)
@@ -343,19 +211,13 @@ $scope.person.greeted = true;
         {{ person }} 
    </div>
 
-
 Results:
 Say hello 
 {“greeted”:true, “name”:Andrew Himonas}
 
-
 BEHAVIOR: The reason the value for greeted changed from false to true in the parent controller’s scope is due to the way we nested the controllers in index.html. If we bind the ChildController under the ParentController in our view (***), then any changes to the parent of the ChildController’s $scope object will also be reflected in the ParentController’s $scope object. Due to controller behavior, we can then reference data in the ParentController’s $scope in the child’s scope. Hence if the controllers shared the same attributes any changes from the child is reflected in the parents.
 
-
-
-
 Section - 3 DreamFactory Integration
-
 
 3.1 DreamFactory Overview
 Through our application we will create and connect to a DSP that lives on the DreamFactory Hosted System. Assuming that we have installed and started Bitnami correctly as well as created an instance of the app in our DSP (DSP app), we can begin to use the Dreamfactory API to create database tables and utilize session capabilities.  
@@ -363,9 +225,7 @@ Through our application we will create and connect to a DSP that lives on the Dr
 3.2 Creating mySQL Tables via Dreamfactory API. 
 Dreamfactory’s REST API allows users to create mySQL database tables, which in turn will be accessed through our application.  In our DSP if we Navigate to the schema tab and click on the ‘db’ tab it will expand and have an option at the bottom to ‘Import JSON Schema’. Once clicked we can paste in a JSON from and hit the Post Schema button. This will create a mySQL table that we defined in the JSON schema. Later we will access the table through our application.
 
-
 The following is a JSON schema example used in our application which has fields for text, strings and integer fields.  
-
 
 {
   "name": "TutorAppContacts",
@@ -429,10 +289,8 @@ The following is a JSON schema example used in our application which has fields 
   ]
 }
 
-
 3.3 Accessing and Configuring DSP
 In order to respond to requests from your application the DSP requires a specific header, namely, 'X-DreamFactory-YOUR_APPLICATION_NAME'. To configure AngularJS to use this header we have to configure the AngularJS $httpProvider. In order to do this we add the following constants and headers to the application (specifically in app.js which generally holds configuration script).
-
 
 DSP Constants and Configuration 
 The application needs to be aware of the location of your DSP, this is done by attaching constants which defines our DSP location. (Seen below). 
@@ -446,10 +304,8 @@ In order to finish our DSP configuration we need to attach a piece of informatio
         $httpProvider.defaults.headers.common['X-DreamFactory-Application-Name'] = DSP_API_KEY;
     }])
 
-
 Section 4 - Application Recomposition 
 Before we begin we will need the following bower components in order to successfully authenticate a user and utilize the Dreamfactory table module.
-
 
 ngCookies
 ngMessages
@@ -459,9 +315,7 @@ ngSanitize
 dfTable
 dfUserManagement
 
-
 Assuming we have done all the necessary Dreamfactory setup, that is created our database table and application instance in The Dreamfactory environment (see Section 3 - Dreamfactory). We can create the directories and files that our application needs, these are listed below. 
-
 
 index.html:  the base html file for our Angular app.
 scripts directory: contains JavaScripts files
@@ -590,18 +444,14 @@ In the NavigationCtrl, we have variable called $scope.hasUser and initialized it
     
 Now we can evaluate expressions in context to the NavigationCtrl controller. The use of the data-ng-if directives inside the list item tag hides certain attributes based on the expression. This means evaluating data-ng-if="!hasUser" results in only the login and registration links to display, while evaluating data-ng-if="hasUser" results in only the logout link to display.
 
-
 NOTE: THE LOGIN SUBMISSION IS NOT COMPATIBLE WITH NEWER VERSIONS OF ANGULAR. 
-
 
 Hence actually submitting the users credentials was done through the TopLevelAppCtrl in /scripts/main.js. When the user enters his credentials in the login screen it stores them in a variable named creds through binding (see below).
 
 
 $scope.creds = {email:"Enter your email here!", password:"Enter pass"};
 
-
 Next the getSession() function, which takes an email and password as arguments posts the credentials through Dreamfactory. Posting to user/session creates a new session and logs in the user, assuming that the user has already registered. Hence our TopLevelAppCtrl code will have the following. (see below)
-
 
 $scope.getSession = function (emailStr, passwordStr) {
  return $https({
@@ -612,17 +462,12 @@ $scope.getSession = function (emailStr, passwordStr) {
 	}
 	});
 
-
 4.2 - Dreamfactory Table 
 That wrapped up the authentication portion, now we can move onto The Dreamfactory table module. The dfTable is a directive that takes an options object. To configure it, add the following code to /views/main.html.
 
 
 <df-table options="options"></df-table>
-
-
 Next we allow the main controller in /scripts/main.js to access our database in Dreamfactory(see Dreamfactory 3.4). 
-
-
 //The DSP_URL is localhost
   .controller('MainCtrl', function ($scope, DSP_URL) {
         $scope.options = {
@@ -632,50 +477,9 @@ Next we allow the main controller in /scripts/main.js to access our database in 
         }
   });
 
-
 At this point we have access to our table and can invoke a create-records form which adds a new record to the database. Keep in mind the database is linked to our DSP and AngularJS is aware of the location of our DSP. From here we can dig into the module and customize the df-table as necessary.
-
 
 Below is the JavaScript code which is creating a form from our database table entries and allowing user to create a record. When the user fills out the fields and hits the submit button our AngularJS application sends an HTTP request to Dreamfactory using the header we specified with $http. (Seen below).  
 
-
-//The code below is a bit advanced
  <div data-ng-if="newRecord" dreamfactory-build-field data-service="options.service" data-field="field" data-extend-field-types="extendFieldTypes" data-override-fields="overrideFields" data-active-view="activeView" data-injected-callbacks="injectedCallbacks"  data-current-edit-record="newRecord" class="form-group"></div>
-
-
  <button type="submit" class="btn btn-default btn-sm">Save</button>
-
-
-
-(See the following link)
-https://docs.google.com/document/d/1d0aLMxPnNi_-hB3iJs2mfLvCwMayb2nISHVX9sKpcpI/edit
-Section 5 - Appendix
-5.1 - Screenshots
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
