@@ -479,7 +479,4 @@ Next we allow the main controller in /scripts/main.js to access our database in 
 
 At this point we have access to our table and can invoke a create-records form which adds a new record to the database. Keep in mind the database is linked to our DSP and AngularJS is aware of the location of our DSP. From here we can dig into the module and customize the df-table as necessary.
 
-Below is the JavaScript code which is creating a form from our database table entries and allowing user to create a record. When the user fills out the fields and hits the submit button our AngularJS application sends an HTTP request to Dreamfactory using the header we specified with $http. (Seen below).  
-
- <div data-ng-if="newRecord" dreamfactory-build-field data-service="options.service" data-field="field" data-extend-field-types="extendFieldTypes" data-override-fields="overrideFields" data-active-view="activeView" data-injected-callbacks="injectedCallbacks"  data-current-edit-record="newRecord" class="form-group"></div>
- <button type="submit" class="btn btn-default btn-sm">Save</button>
+Below is the JavaScript code which is creating a form from our database table entries and allowing user to create a record. When the user fills out the fields and hits the submit button our AngularJS application sends an HTTP request to Dreamfactory using the header we specified with $http.
